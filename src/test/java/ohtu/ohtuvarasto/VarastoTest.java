@@ -132,7 +132,7 @@ public class VarastoTest {
     public void otaVarastostaOttaaVainSenMitaJaljellaJosYritetaanOttaaEnemman() {
         varasto.lisaaVarastoon(3);
         
-        assertEquals(6,varasto.otaVarastosta(5),0.0001);
+        assertEquals(3,varasto.otaVarastosta(5),0.0001);
     }
 
     @Test
