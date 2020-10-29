@@ -65,4 +65,81 @@ public class VarastoTest {
         assertEquals(4, varasto.paljonkoMahtuu(), vertailuTarkkuus);
     }
 
+    @Test
+    public void testaaKonstruktoriaKunNegatiivinenTilavuus() {
+        Varasto v = new Varasto(-1);
+
+        assertEquals(0.0, v.getTilavuus(), 0.0000001);
+    }
+
+    @Test
+    public void testaaKonstruktoriaLiianIsollaAlkuSaldolla() {
+        Varasto v = new Varasto(2.0,3.0);
+
+        assertEquals(2.0, v.getSaldo(), 0.000001);
+    }
+
+    @Test
+    public void testaaKonstruktoriaKunSaldoaVahemmanKuinTilavuutta() {
+        Varasto v = new Varasto(2.0,1.0);
+
+        assertEquals(1.0, v.getSaldo(), 0.000001);
+    }
+
+    @Test
+    public void testaaKonstruktoriaNegatiivisellaAlkusaldolla() {
+        Varasto v = new Varasto(2.0,-1.0);
+
+        assertEquals(0.0,v.getSaldo(),0.000001);
+    }
+
+    @Test
+    public void testaaAlkusaldollistaKonstruktoriaNegatiivisellaVarastonTilavuudella() {
+        Varasto v = new Varasto(-2.0,1.0);
+        assertEquals(0.0,v.getTilavuus(),0.000001);
+    }
+
+    @Test
+    public void metodiLisaaVarastoonEiTeeMitaanJosMaaraNegatiivinen() {
+        double saldo = varasto.getSaldo();
+        varasto.lisaaVarastoon(-1);
+
+        assertEquals(saldo,varasto.getSaldo(),0.00000001);
+    }
+
+    @Test
+    public void lisaaVarastoonTayttaaSenMitaMahtuu() {
+        double tilavuus = varasto.getTilavuus();
+        varasto.lisaaVarastoon(12);
+
+        assertEquals(tilavuus,varasto.getSaldo(),0.000001);
+    }
+
+    @Test
+    public void lisaaVarastoonLisaaOikeinKunTilaaOn() {
+        varasto.lisaaVarastoon(4);
+        assertEquals(4,varasto.getSaldo(),0.00001);
+    }
+
+    @Test
+    public void otaVarastostaEiToimiNegatiiviellaMaaralla() {
+        double saldo = varasto.getSaldo();
+        varasto.otaVarastosta(-3);
+        assertEquals(saldo,varasto.getSaldo(),0.0000001);
+    }
+
+    @Test
+    public void otaVarastostaOttaaVainSenMitaJaljellaJosYritetaanOttaaEnemman() {
+        varasto.lisaaVarastoon(3);
+        
+        assertEquals(3,varasto.otaVarastosta(5),0.0001);
+    }
+
+    @Test
+    public void toStringToimii() {
+        String str = "saldo = 0.0, vielä tilaa 10.0";
+
+        assertEquals(str,varasto.toString());
+    }
+
 }
